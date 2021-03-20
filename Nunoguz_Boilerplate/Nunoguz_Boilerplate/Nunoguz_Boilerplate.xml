@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nunoguz_Boilerplate</name>
+    </assembly>
+    <members>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.GetUserByAuth">
+            <summary>
+            Returns An User By JWT Bearer
+            </summary>
+            <remarks>
+            
+                Sample request:
+                        GET /api/v1/users/auth
+                            
+            </remarks>
+            <response code="200"> Gets an user in the system</response>
+            <response code="400"> Unable to get this user due to does not match or wrong JWT</response>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.GetUsers">
+            <summary>
+            Returns All Users with inactive
+            </summary>
+            <response code="200"> Gets an user in the system</response>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.GetUserById(System.Int32)">
+            <summary>
+            Returns user by id
+            </summary>
+            <response code="200"> Gets an user in the system with id</response>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.DeleteUserById(System.Int32)">
+            <summary>
+            Deletes user by id (actullay sets the User.isActive field to false)
+            </summary>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.CreateUser(Nunoguz_Boilerplate.DataModels.RequestModels.Users.CreateUserRequest)">
+            <summary>
+            Creates User
+            </summary>
+            <param name="request"></param>
+            <returns>Ok(user)</returns>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.LoginUserAsync(Nunoguz_Boilerplate.DataModels.RequestModels.Users.LoginRequest)">
+             <summary>
+             Login existing user
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Login
+                 {
+                    "Email": "mail@email.com",
+                    "Password": "P4asswordd"
+                 }
+            
+             </remarks>
+             <returns>Ok(user)</returns>
+             <response code="200">Returns if login success with user info </response>
+             <response code="400">If given mail or Password is not match any user's which in database</response> 
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.UpdateUser(Nunoguz_Boilerplate.DataModels.RequestModels.Users.UpdateUserRequest)">
+            <summary>
+            Updates User
+            </summary>
+            <param name="request"></param>
+            <returns>Ok(user)</returns>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.ResetPasswordByEmail(Nunoguz_Boilerplate.DataModels.RequestModels.Users.ForgotPasswordRequest)">
+             <summary>
+             Resets User Password
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Password/Reset
+                 {
+                    "Email": "usermail@account.com",
+                 }
+            
+             </remarks>
+             <returns>Ok(true)</returns>
+             <response code="200">Returns if password reset successful </response>
+             <response code="400">Invalid or not matched passwords</response>
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Controllers.v1.UsersController.ChangePassword(Nunoguz_Boilerplate.DataModels.RequestModels.Users.ChangePasswordRequest)">
+             <summary>
+             Changes User Password
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Password
+                 {
+                    "NewPassword": "ShouldBeSame0",
+                    "ConfirmPassword": "ShouldBeSame0"
+                 }
+            
+             </remarks>
+             <returns>Ok(true)</returns>
+             <response code="200">Returns if password reset successful </response>
+             <response code="400">Invalid or not matched passwords</response> 
+        </member>
+        <member name="M:Nunoguz_Boilerplate.Shared.Generators.PassHasherGenerator.HashPassword(System.String,System.String)">
+            <summary>
+            Generates hashed output by a given password, then returns a tuple contains salt and hash respectively.
+            </summary>
+            <param name="password">Password to hash</param>
+            <param name="saltStr"></param>
+            <returns>Returns a tuple contains salt and hash respectively</returns>
+        </member>
+    </members>
+</doc>
