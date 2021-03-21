@@ -33,6 +33,7 @@ namespace Nunoguz_Boilerplate
     {
         private const string ApiVersion = "1.0";
         private readonly string CorsAll = "all";
+        private readonly string CorsLimited = "limitedCors";
 
         public Startup(IConfiguration configuration)
         {
@@ -84,6 +85,26 @@ namespace Nunoguz_Boilerplate
             // Repo and service injections of our models
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
+            #endregion
+
+            #region Cors Config
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsLimited,
+                              builder =>
+                              {
+                                  builder.WithOrigins(Configuration.GetSection("Application:AppDomain").Value)
+                                  .AllowAnyHeader().AllowAnyMethod();
+                              });
+
+                options.AddPolicy(name: CorsAll,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                                      // .WithMethods("PUT", "DELETE", "GET");
+                                      // To do it, Use [EnableCors("CorsPolicyName")] in Controller or endpoint
+                                  });
+            });
             #endregion
 
             services.AddControllers();
@@ -204,11 +225,19 @@ namespace Nunoguz_Boilerplate
 
             app.UseStaticFiles();
 
+            //app.UseStaticFiles();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+            //    RequestPath = new PathString("/Resources")
+            //});
+
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
             app.UseCors(CorsAll);
+            //app.UseCors(CorsLimited);
 
             app.UseAuthentication();
 
