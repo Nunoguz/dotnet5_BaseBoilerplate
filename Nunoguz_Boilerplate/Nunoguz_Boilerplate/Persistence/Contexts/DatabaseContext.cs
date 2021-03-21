@@ -20,6 +20,8 @@ namespace Nunoguz_Boilerplate.Persistence.Contexts
             modelBuilder.Entity<User>()
                     .HasKey(a => a.Id);
 
+            modelBuilder.Entity<User>().HasQueryFilter(u => u.isActive); // adds the all query filter that => where(user => user.isActive)
+
         }
 
     }
